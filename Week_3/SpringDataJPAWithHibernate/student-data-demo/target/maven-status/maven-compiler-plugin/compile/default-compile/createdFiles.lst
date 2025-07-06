@@ -1,0 +1,4 @@
+com\learntech\springdata\model\Student.class
+com\learntech\springdata\StudentDataDemoApplication.class
+com\learntech\springdata\repository\StudentRepo.class
+com\learntech\springdata\service\StudentService.class
