@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Repository Bean -->
+    <bean id="libraryRepository" class="com.library.repository.LibraryRepository" />
+
+    <!-- Service Bean with Dependency Injection -->
+    <bean id="libraryService" class="com.library.service.LibraryService">
+        <property name="libraryRepository" ref="libraryRepository"/>
+    </bean>
+
+</beans>
