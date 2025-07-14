@@ -1,5 +1,0 @@
-package com.cognizant.springresthandson3.config;
-
-public class CustomDateEditorRegistrar {
-
-}

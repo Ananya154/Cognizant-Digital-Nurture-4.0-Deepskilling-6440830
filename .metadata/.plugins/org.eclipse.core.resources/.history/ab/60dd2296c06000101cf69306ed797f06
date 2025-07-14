@@ -1,5 +1,0 @@
-package com.cognizant.springrest.exception;
-
-public class DepartmentNotFoundException {
-
-}
