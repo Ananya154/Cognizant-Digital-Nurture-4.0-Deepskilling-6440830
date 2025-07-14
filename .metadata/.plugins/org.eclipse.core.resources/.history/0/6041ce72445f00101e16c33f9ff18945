@@ -1,0 +1,51 @@
+package com.cognizant.springresthandson3.dao;
+
+import com.cognizant.springresthandson3.model.Employee;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Repository;
+
+import java.beans.PropertyEditorSupport;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+@Repository
+public class EmployeeDao {
+
+    private static List<Employee> EMPLOYEE_LIST;
+
+    public EmployeeDao() {
+        // Create the bean factory manually to register custom editors
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+
+        // Register custom editor for java.util.Date
+        ((ConfigurableBeanFactory) beanFactory).registerCustomEditor(Date.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    setValue(sdf.parse(text));
+                } catch (ParseException e) {
+                    throw new IllegalArgumentException("Invalid date format. Expected yyyy-MM-dd", e);
+                }
+            }
+        });
+
+        // Load XML and register beans
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        reader.loadBeanDefinitions("employee.xml");
+
+        // Get the employee list
+        EMPLOYEE_LIST = beanFactory.getBean("employeeList", ArrayList.class);
+    }
+
+    public List<Employee> getAllEmployees() {
+        return EMPLOYEE_LIST;
+    }
+}

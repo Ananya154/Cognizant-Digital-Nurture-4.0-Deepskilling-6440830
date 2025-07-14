@@ -1,0 +1,42 @@
+package com.cognizant.springresthandson3.dao;
+
+import com.cognizant.springresthandson3.config.DateEditorRegistrar;
+import com.cognizant.springresthandson3.model.Employee;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
+public class EmployeeDao {
+
+    private static List<Employee> EMPLOYEE_LIST;
+
+    public EmployeeDao() {
+        try {
+            // Create bean factory
+            DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+
+            // ✅ Register custom editor
+            DateEditorRegistrar registrar = new DateEditorRegistrar();
+            registrar.registerCustomEditors(beanFactory); // <-- THIS LINE is CORRECT now
+
+            // Load XML
+            XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+            reader.loadBeanDefinitions("employee.xml");
+
+            // Get employee list
+            EMPLOYEE_LIST = beanFactory.getBean("employeeList", ArrayList.class);
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Good for debugging
+        }
+    }
+
+    public List<Employee> getAllEmployees() {
+        return EMPLOYEE_LIST;
+    }
+}

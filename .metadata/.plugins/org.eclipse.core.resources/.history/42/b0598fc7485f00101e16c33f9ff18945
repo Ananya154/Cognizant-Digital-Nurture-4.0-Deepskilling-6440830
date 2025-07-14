@@ -1,0 +1,82 @@
+package com.cognizant.springresthandson3.dao;
+
+import com.cognizant.springresthandson3.model.Employee;
+import com.cognizant.springresthandson3.model.Skill;
+import com.cognizant.springresthandson3.model.Department;
+import org.springframework.stereotype.Repository;
+import org.w3c.dom.*;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+@Repository
+public class EmployeeDao {
+
+    private static List<Employee> EMPLOYEE_LIST = new ArrayList<>();
+
+    public EmployeeDao() {
+        try {
+            InputStream xml = getClass().getClassLoader().getResourceAsStream("employee.xml");
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml);
+            NodeList employeeNodes = doc.getElementsByTagName("bean");
+
+            for (int i = 0; i < employeeNodes.getLength(); i++) {
+                Element bean = (Element) employeeNodes.item(i);
+                if ("com.cognizant.springresthandson3.model.Employee".equals(bean.getAttribute("class"))) {
+                    Employee e = new Employee();
+                    NodeList props = bean.getElementsByTagName("property");
+
+                    for (int j = 0; j < props.getLength(); j++) {
+                        Element prop = (Element) props.item(j);
+                        String name = prop.getAttribute("name");
+                        String value = prop.getAttribute("value");
+
+                        switch (name) {
+                            case "id" -> e.setId(Integer.parseInt(value));
+                            case "name" -> e.setName(value);
+                            case "salary" -> e.setSalary(Double.parseDouble(value));
+                            case "permanent" -> e.setPermanent(Boolean.parseBoolean(value));
+                            case "dateOfBirth" -> {
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                e.setDateOfBirth(sdf.parse(value));
+                            }
+                            case "department" -> {
+                                Department d = new Department();
+                                d.setId(1);
+                                d.setName("Development");
+                                e.setDepartment(d);
+                            }
+                            case "skillList" -> {
+                                List<Skill> skills = new ArrayList<>();
+                                NodeList beans = prop.getElementsByTagName("bean");
+                                for (int k = 0; k < beans.getLength(); k++) {
+                                    Element skillBean = (Element) beans.item(k);
+                                    Skill s = new Skill();
+                                    NodeList skillProps = skillBean.getElementsByTagName("property");
+                                    for (int m = 0; m < skillProps.getLength(); m++) {
+                                        Element sp = (Element) skillProps.item(m);
+                                        if (sp.getAttribute("name").equals("id"))
+                                            s.setId(Integer.parseInt(sp.getAttribute("value")));
+                                        if (sp.getAttribute("name").equals("name"))
+                                            s.setName(sp.getAttribute("value"));
+                                    }
+                                    skills.add(s);
+                                }
+                                e.setSkillList(skills);
+                            }
+                        }
+                    }
+                    EMPLOYEE_LIST.add(e);
+                }
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public List<Employee> getAllEmployees() {
+        return EMPLOYEE_LIST;
+    }
+}

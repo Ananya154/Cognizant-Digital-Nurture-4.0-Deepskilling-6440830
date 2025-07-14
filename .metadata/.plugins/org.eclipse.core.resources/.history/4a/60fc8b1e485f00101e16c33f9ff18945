@@ -1,0 +1,27 @@
+package com.cognizant.springresthandson3.config;
+
+import org.springframework.beans.factory.config.CustomEditorConfigurer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+
+import java.beans.PropertyEditor;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+@Configuration
+public class CustomDateEditorRegistrar {
+
+    @Bean
+    public static CustomEditorConfigurer customEditorConfigurer() {
+        CustomEditorConfigurer configurer = new CustomEditorConfigurer();
+
+        Map<Class<?>, Class<? extends PropertyEditor>> editors = new HashMap<>();
+        editors.put(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+
+        configurer.setCustomEditors(editors);
+        return configurer;
+    }
+}

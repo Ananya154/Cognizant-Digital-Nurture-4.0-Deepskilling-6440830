@@ -1,0 +1,5 @@
+package com.cognizant.springlearn.security;
+
+public class SecurityConfig {
+
+}

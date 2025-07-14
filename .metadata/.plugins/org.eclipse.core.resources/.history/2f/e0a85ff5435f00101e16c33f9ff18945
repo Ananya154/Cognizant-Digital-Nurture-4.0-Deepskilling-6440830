@@ -1,0 +1,57 @@
+package com.cognizant.springresthandson3.dao;
+
+import com.cognizant.springresthandson3.model.Employee;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Repository;
+import org.springframework.beans.PropertyEditorRegistrar;
+import org.springframework.beans.PropertyEditorRegistry;
+import org.springframework.beans.factory.config.CustomEditorConfigurer;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.beans.PropertyEditorSupport;
+import java.text.ParseException;
+
+@Repository
+public class EmployeeDao {
+
+    private static List<Employee> EMPLOYEE_LIST;
+
+    public EmployeeDao() {
+        try {
+            // Create a factory that allows custom editors
+            DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+
+            // Register custom editor manually
+            factory.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+                @Override
+                public void setAsText(String text) throws IllegalArgumentException {
+                    try {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        setValue(sdf.parse(text));
+                    } catch (ParseException e) {
+                        throw new IllegalArgumentException("Invalid date format. Expected yyyy-MM-dd", e);
+                    }
+                }
+            });
+
+            GenericApplicationContext context = new GenericApplicationContext(factory);
+            new XmlBeanDefinitionReader(context).loadBeanDefinitions(new ClassPathResource("employee.xml"));
+            context.refresh();
+
+            EMPLOYEE_LIST = context.getBean("employeeList", ArrayList.class);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Employee> getAllEmployees() {
+        return EMPLOYEE_LIST;
+    }
+}

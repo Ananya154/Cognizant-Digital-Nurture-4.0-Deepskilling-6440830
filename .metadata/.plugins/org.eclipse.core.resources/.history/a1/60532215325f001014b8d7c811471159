@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="skillJava" class="com.cognizant.springresthandson3.model.Skill">
+        <property name="name" value="Java"/>
+    </bean>
+
+    <bean id="skillAngular" class="com.cognizant.springresthandson3.model.Skill">
+        <property name="name" value="Angular"/>
+    </bean>
+
+    <bean id="skillSQL" class="com.cognizant.springresthandson3.model.Skill">
+        <property name="name" value="SQL"/>
+    </bean>
+    
+    <bean id="deptDev" class="com.cognizant.springresthandson3.model.Department">
+        <property name="id" value="1"/>
+        <property name="name" value="Development"/>
+    </bean>
+
+    <bean id="deptHR" class="com.cognizant.springresthandson3.model.Department">
+        <property name="id" value="2"/>
+        <property name="name" value="HR"/>
+    </bean>
+    <bean id="employeeList" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+
+                <bean class="com.cognizant.springresthandson3.model.Employee">
+                    <property name="id" value="101"/>
+                    <property name="name" value="John"/>
+                    <property name="salary" value="50000"/>
+                    <property name="permanent" value="true"/>
+                    <property name="department" ref="deptDev"/>
+                    <property name="dateOfBirth">
+                        <bean class="java.util.Date">
+                            <constructor-arg value="1990/01/01"/>
+                        </bean>
+                    </property>
+                    <property name="skillList">
+                        <list>
+                            <ref bean="skillJava"/>
+                            <ref bean="skillSQL"/>
+                        </list>
+                    </property>
+                </bean>
+
+                <bean class="com.cognizant.springresthandson3.model.Employee">
+                    <property name="id" value="102"/>
+                    <property name="name" value="Jane"/>
+                    <property name="salary" value="60000"/>
+                    <property name="permanent" value="false"/>
+                    <property name="department" ref="deptHR"/>
+                    <property name="dateOfBirth">
+                        <bean class="java.util.Date">
+                            <constructor-arg value="1991/03/15"/>
+                        </bean>
+                    </property>
+                    <property name="skillList">
+                        <list>
+                            <ref bean="skillAngular"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+</beans>
