@@ -6,7 +6,7 @@ This repository contains the hands-on work completed during the Cognizant Digita
 - Week 1 - Data Structures & Algorithms and Design Patterns & Principles
 - Week 2 - TDD and PL/SQL Programming  
 - Week 3 - Spring Core, JPA, Hibernate  
-- Week 4 - Spring REST APIs and JWT
+- Week 4 - Spring REST using Spring Boot 3 and JWT
 
 Summary of Work 
 Week 1 – Data Structures & Algorithms and Design Patterns & Principles
