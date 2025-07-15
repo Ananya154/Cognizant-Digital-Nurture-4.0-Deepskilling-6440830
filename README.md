@@ -12,7 +12,7 @@ This repository contains the hands-on work completed during the Cognizant Digita
 
 ## Note:
 All exercises were done on time during the respective weeks.  
-Due to an unexpected system issue, the original files and commit history were lost.  
+Due to an unexpected system issue, the original files and commit history were lost for first 4 weeks.  
 So I had to re-upload the folders from my local backups and available screenshots.
 
 For proof of timely completion, please refer to the output `.docx` files in each week’s folder.
