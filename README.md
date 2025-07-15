@@ -10,6 +10,7 @@ This repository contains the hands-on work completed during the Cognizant Digita
 
 Summary of Work 
 Week 1 – Data Structures & Algorithms and Design Patterns & Principles
+
 Implemented Java programs using core data structures like arrays, ArrayList, HashMap, and LinkedList.
 
 Practiced searching and sorting algorithms.
@@ -27,6 +28,7 @@ MVC
 Dependency Injection
 
 Week 2 – TDD (Test Driven Development) and PL/SQL Programming
+
 Wrote unit test cases using JUnit and Mockito.
 
 Practiced mock-based testing to verify method calls and behaviors.
@@ -42,6 +44,7 @@ Created and used tables like Customers, Accounts, Loans, Transactions, and Emplo
 Documented test results and outputs with screenshots.
 
 Week 3 – Spring Core & Maven and Spring Data JPA with Spring Boot, Hibernate
+
 Developed Java applications using Spring Core with Maven.
 
 Implemented Dependency Injection using XML and Annotation configurations.
@@ -49,6 +52,7 @@ Implemented Dependency Injection using XML and Annotation configurations.
 Connected Java applications to databases using JPA and Hibernate for performing CRUD operations.
 
 Week 4 – Spring REST API & JWT Authentication
+
 Built RESTful APIs using Spring Boot and annotations like @GetMapping, etc.
 
 Handled validation, exception handling, and service layers.
