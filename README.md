@@ -9,6 +9,7 @@ This repository contains the hands-on work completed during the Cognizant Digita
 - Week 4 - Spring REST using Spring Boot 3 and JWT
 
 Summary of Work 
+
 **Week 1** – Data Structures & Algorithms and Design Patterns & Principles
 
 Implemented Java programs using core data structures like arrays, ArrayList, HashMap, and LinkedList.
