@@ -1,0 +1,5 @@
+package com.cognizant.accountservice.model.Account;
+
+public class Account {
+
+}

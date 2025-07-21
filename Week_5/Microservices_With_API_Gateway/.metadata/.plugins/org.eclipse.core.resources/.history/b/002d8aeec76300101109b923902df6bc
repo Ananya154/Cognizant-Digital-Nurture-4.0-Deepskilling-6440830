@@ -1,0 +1,5 @@
+package com.cognizant.accountservice.controller;
+
+public class AccountController {
+
+}
